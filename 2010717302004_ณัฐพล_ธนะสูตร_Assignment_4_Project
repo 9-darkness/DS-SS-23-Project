@@ -1,0 +1,145 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/9-darkness/DS-SS-23-Project/blob/main/2010717302004_%E0%B8%93%E0%B8%B1%E0%B8%90%E0%B8%9E%E0%B8%A5_%E0%B8%98%E0%B8%99%E0%B8%B0%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3_Assignment_4_Project\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "background_save": true,
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3jlsbolagwkq",
+        "outputId": "c9588fac-556a-4ecd-a4da-e43c95ad2e87"
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "\n",
+            "Dictionary App\n",
+            "1. Add a new word\n",
+            "2. Delete a word\n",
+            "3. Update a word\n",
+            "4. Lookup a word\n",
+            "5. View next and previous word\n",
+            "6. Exit\n"
+          ]
+        }
+      ],
+      "source": [
+        "class DictionaryApp:\n",
+        "    def __init__(self):\n",
+        "        self.dictionary = {}\n",
+        "        self.words = []\n",
+        "\n",
+        "    def add_word(self, english, thai, part_of_speech):\n",
+        "        self.dictionary[english] = {'thai': thai, 'part_of_speech': part_of_speech}\n",
+        "        self.words.append(english)\n",
+        "\n",
+        "    def delete_word(self, english):\n",
+        "        if english in self.dictionary:\n",
+        "            self.dictionary.pop(english)\n",
+        "            self.words.remove(english)\n",
+        "\n",
+        "    def update_word(self, english, thai=None, part_of_speech=None):\n",
+        "        if english in self.dictionary:\n",
+        "            if thai:\n",
+        "                self.dictionary[english]['thai'] = thai\n",
+        "            if part_of_speech:\n",
+        "                self.dictionary[english]['part_of_speech'] = part_of_speech\n",
+        "\n",
+        "    def get_word(self, english):\n",
+        "        return self.dictionary.get(english, None)\n",
+        "\n",
+        "    def get_next_previous(self, english):\n",
+        "        if english in self.words:\n",
+        "            index = self.words.index(english)\n",
+        "            next_word = self.words[index + 1] if index + 1 < len(self.words) else None\n",
+        "            previous_word = self.words[index - 1] if index > 0 else None\n",
+        "            return next_word, previous_word\n",
+        "\n",
+        "def main():\n",
+        "    app = DictionaryApp()\n",
+        "    app.add_word(\"hello\", \"สวัสดี\", \"interjection\")\n",
+        "\n",
+        "    while True:\n",
+        "        print(\"\\nDictionary App\")\n",
+        "        print(\"1. Add a new word\")\n",
+        "        print(\"2. Delete a word\")\n",
+        "        print(\"3. Update a word\")\n",
+        "        print(\"4. Lookup a word\")\n",
+        "        print(\"5. View next and previous word\")\n",
+        "        print(\"6. Exit\")\n",
+        "\n",
+        "        choice = input(\"Enter your choice: \")\n",
+        "\n",
+        "        if choice == \"1\":\n",
+        "            eng = input(\"Enter English word: \")\n",
+        "            thai = input(\"Enter Thai translation: \")\n",
+        "            part = input(\"Enter part of speech: \")\n",
+        "            app.add_word(eng, thai, part)\n",
+        "        elif choice == \"2\":\n",
+        "            eng = input(\"Enter English word to delete: \")\n",
+        "            app.delete_word(eng)\n",
+        "        elif choice == \"3\":\n",
+        "            eng = input(\"Enter English word to update: \")\n",
+        "            thai = input(\"Enter new Thai translation (or press enter to skip): \")\n",
+        "            part = input(\"Enter new part of speech (or press enter to skip): \")\n",
+        "            app.update_word(eng, thai, part)\n",
+        "        elif choice == \"4\":\n",
+        "            eng = input(\"Enter English word to lookup: \")\n",
+        "            word_info = app.get_word(eng)\n",
+        "            if word_info:\n",
+        "                print(f\"Thai: {word_info['thai']}, Part of Speech: {word_info['part_of_speech']}\")\n",
+        "            else:\n",
+        "                print(\"Word not found.\")\n",
+        "        elif choice == \"5\":\n",
+        "            eng = input(\"Enter English word to find next and previous words: \")\n",
+        "            next_word, prev_word = app.get_next_previous(eng)\n",
+        "            print(f\"Next word: {next_word}, Previous word: {prev_word}\")\n",
+        "        elif choice == \"6\":\n",
+        "            break\n",
+        "        else:\n",
+        "            print(\"Invalid choice. Please try again.\")\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    main()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "wcG6eUi3g0Gz"
+      },
+      "outputs": [],
+      "source": []
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
